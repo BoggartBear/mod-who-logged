@@ -46,6 +46,9 @@ void WhoLoggedAnnounce::OnPlayerLogin(Player* player)
             break;
     }
 
+    if (playerIP == "headless")
+        return;
+
     LOG_INFO("module", "Player '{}' has logged in : Level '{}' : Class '{}' : IP '{}' : AccountID '{}'", playerName.c_str(), std::to_string(playerLevel), playerClass.c_str(), playerIP.c_str(), playerAccountID);
 }
 
@@ -59,6 +62,9 @@ void WhoLoggedAnnounce::OnPlayerLogout(Player* player)
         std::string playerIP = session->GetRemoteAddress();
         uint32 playerAccountID = session->GetAccountId();
         std::string playerName = player->GetName();
+
+        if (playerIP == "headless")
+            return;
 
         LOG_INFO("module", "Player '{}' has logged out : IP '{}' : AccountID '{}'", playerName.c_str(), playerIP.c_str(), playerAccountID);
     }
